@@ -4,8 +4,11 @@ import {
   TouchableWithoutFeedback,
   Image,
   TouchableOpacity,
+  Dimensions,
+  StatusBar,
 } from 'react-native';
 import React, {useState} from 'react';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Video from 'react-native-video';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -33,8 +36,19 @@ const Post = props => {
     setIsLiked(!isLiked);
   };
 
+  // Bottom tab navigator height
+  const bottomTabHeight = useBottomTabBarHeight();
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          height:
+            Dimensions.get('window').height -
+            (StatusBar.currentHeight + bottomTabHeight),
+        },
+      ]}>
       {/* Video player */}
       <TouchableWithoutFeedback onPress={onPlayPausePress}>
         <View>
