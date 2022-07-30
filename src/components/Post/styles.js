@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: 100
+    zIndex: 100,
   },
   video: {
     position: 'absolute',
@@ -45,12 +45,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+    marginTop: 5,
   },
   bottomContainer: {
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   handle: {
     color: '#fff',
