@@ -15,20 +15,28 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import styles from './styles';
 
 const Post = props => {
+  const [post, setPost] = useState(props.post);
+  const [isLiked, setIsLiked] = useState(false);
   const [paused, setPaused] = useState(true);
-
-  const {post} = props;
 
   const onPlayPausePress = () => {
     // console.warn('play/pause');
     setPaused(!paused);
   };
+
+  const onLikePress = () => {
+    const likesToAdd = isLiked ? -1 : 1;
+    setPost({
+      ...post,
+      likes: post.likes + likesToAdd,
+    });
+    setIsLiked(!isLiked);
+  };
+
   return (
     <View style={styles.container}>
       {/* Video player */}
-      <TouchableWithoutFeedback
-        onPress={onPlayPausePress}
-        style={styles.videoPlayBtn}>
+      <TouchableWithoutFeedback onPress={onPlayPausePress}>
         <View>
           <Video
             source={{
@@ -43,19 +51,24 @@ const Post = props => {
 
           <View style={styles.interactionContainer}>
             <View style={styles.rightContainer}>
-              <View style={styles.profilePictureContainer}>
-                <Image
-                  style={styles.profilePicture}
-                  source={{
-                    uri: post.user.imageUri,
-                  }}
-                />
-              </View>
+              <Image
+                style={styles.profilePicture}
+                source={{
+                  uri: post.user.imageUri,
+                }}
+              />
+
               {/* Icon container */}
-              <View style={styles.iconContainer}>
-                <FontAwesome name="heart" size={40} color="white" />
+              <TouchableOpacity
+                style={styles.iconContainer}
+                onPress={onLikePress}>
+                <FontAwesome
+                  name="heart"
+                  size={40}
+                  color={isLiked ? 'red' : 'white'}
+                />
                 <Text style={styles.statsLabel}>{post.likes}</Text>
-              </View>
+              </TouchableOpacity>
               <View style={styles.iconContainer}>
                 <Foundation name="comment" size={40} color="white" />
                 <Text style={styles.statsLabel}>{post.comments}</Text>
